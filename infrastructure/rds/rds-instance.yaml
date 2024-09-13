@@ -1,0 +1,20 @@
+apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: my-db-instance
+  namespace: hello-world
+spec:
+  dbInstanceClass: db.t3.micro
+  engine: postgres
+  masterUsername: admin
+  masterUserPassword:
+    secretKeyRef:
+      name: rds-secret
+      key: password
+  allocatedStorage: 20
+  dbName: hello_world_db
+  publiclyAccessible: false
+  backupRetentionPeriod: 7
+  vpcSecurityGroupIDs:
+    - sg-xxxxxxxx
+  dbSubnetGroupName: my-subnet-group
